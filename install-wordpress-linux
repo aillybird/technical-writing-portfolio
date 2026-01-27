@@ -27,7 +27,7 @@ Before starting, you should have:
 ## Step 1: Update the System
 Before we begin installing our new website on our linux server, a good first practice would be to apply any new system updates. This will ensure that the user is up to date with current security patches and that we are using the latest package versions available from the Debian repository. Run the following commands at the terminal window:
 
-```
+```bash
 sudo apt update
 sudo apt full-upgrade
 ```
@@ -37,7 +37,25 @@ Afterwards, reboot your system to load any new system software that has been ins
 `sudo reboot`
 
 ## Step 2: Install Apache
+Apache is the web server that will serve content to the visitors of your website. It is highly recommended that you install Apache directly from the Debian software repository.
 
+`sudo apt install apache2`
+
+When installation is complete, check to see if the server is running with the following command:
+
+`sudo systemctl status apache2`
+
+Furthermore, you can check to see if the server is serving pages by opening a web browser and visiting the server's IP address or hostname:
+
+`http://<server-ip>`
+
+If Apache is installed and running correctly, you should see the Apache2 Debian Default Page. At this point, Apache is installed and ready to serve the WordPress site.
+
+If the server is running according to systemctl but not serving pages, make sure that ports 80 (HTTP) and 443 (HTTPS) are allowed through your firewall software. A common firewall utility for Debian is ufw and can typically be configured to allow web traffic with the following command:
+
+`sudo ufw allow "WWW Full"`
+
+Please note that ufw is not the default firewall software on all systems and that you may have different firewall software on your server.
 
 ## Step 3: Install MariaDB (MySQL)
 ## Step 4: Install PHP and Required Extensions

@@ -58,9 +58,128 @@ If the server is running according to systemctl but not serving pages, make sure
 Please note that ufw is not the default firewall software on all systems and that you may have different firewall software on your server.
 
 ## Step 3: Install MariaDB (MySQL)
-## Step 4: Install PHP and Required Extensions
-## Step 5: Configure Apache for WordPress
-## Step 6: Create the WordPress Database and User
+Next, we will install MariaDB, the backend database for our WordPress site.
+
+`sudo apt install mariadb-server`
+
+Once the installation is complete, verify that the MariaDB service is running:
+
+`sudo systemctl status mariadb`
+
+If the service is running correctly, the status output should show active (running).
+
+## Step 4: Secure MariaDB and Create the WordPress Database
+MariaDB has a helper script that will walk you through the process of applying basic security to your database server. 
+
+`sudo mysql_secure_installation`
+
+During this process, you will be prompted to:
+
+ - Set a password for the MariaDB root account
+ - Remove anonymous users
+ - Disable remote root login
+ - Remove the test database
+ - Reload privilege tables
+
+It is recommended that you answer "yes" to each prompt unless you have a specific reason otherwise.
+
+Next, log into the database shell as the root user:
+
+`sudo mysql`
+
+Then, execute the following commands, making sure to use an actual strong password:
+
+```sql
+CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'wpuser'@'localhost' IDENTIFIED BY 'strong_password_here';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'wpuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+The database and user required by WordPress are now configured.
+
+## Step 5: Configure Apache
+Next, you will configure the Apache web server.
+
+Create a directory where you will store your files and give it the appropriate permissions:
+
+```
+sudo mkdir -p /var/www/example.com
+sudo chown -R www-data:www-data /var/www/example.com
+sudo chmod 755 /var/www/example.com
+```
+
+Create a VirtualHost file in Apache for your website:
+
+`sudo nano /etc/apache2/sites-available/example.com.conf`
+
+Add the following configuration, replacing the example domain with your own domain name or server IP address:
+
+```
+<VirtualHost *:80>
+    ServerName example.com
+    ServerAlias www.example.com
+
+    DocumentRoot /var/www/example.com
+
+    <Directory /var/www/example.com>
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/example.com_error.log
+    CustomLog ${APACHE_LOG_DIR}/example.com_access.log combined
+</VirtualHost>
+```
+
+Save the file and exit the editor. 
+
+Next, we will issue commands to enable the new site, disable the default site, enable the rewrite module (a requirement for WordPress), and reload the Apache server. 
+
+```
+sudo a2ensite example.com.conf
+sudo a2dissite 000-default.conf
+sudo a2enmod rewrite
+sudo systemctl reload apache2
+```
+
+Again, we can check that the server is running with systemctl:
+
+`sudo systemctl status apache2`
+
+## Step 6: Installing PHP
+WordPress is written in PHP, and requires several extensions to function properly. Thankfully the necessary software is located in the package manager:
+
+`sudo apt install php php-mysql php-curl php-gd php-xml php-mbstring php-zip php-intl`
+
+Once installation is complete, you can verify that PHP has been installed by running:
+
+`php -v`
+
+This should output the currently installed PHP version. To check that PHP is working with Apache, create a file in your web root directory
+
+`sudo nano /var/www/example.com/info.php`
+
+Add the following to the file:
+
+```
+<?php
+phpinfo();
+```
+
+Save the file, and then change the owner so that the server can read it:
+
+`sudo chown www-data:www-data /var/www/example.com/info.php`
+
+Check the file on your web browser:
+
+`http://<server-ip>/info.php`
+
+If PHP is configured properly, you will see a PHP information page. Once verification is complete, it is vital that you remove this file for security purposes:
+
+`sudo rm /var/www/example.com/info.php`
+
 ## Step 7: Download and Configure WordPress
 ## Step 8: Set File Permissions
 ## Step 9: Complete the WordPress Installation

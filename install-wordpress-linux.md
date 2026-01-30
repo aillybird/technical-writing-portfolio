@@ -344,14 +344,24 @@ sudo find /var/www/example.com -type d -exec chmod 755 {} \;
 
 ## Step 8: Complete the WordPress Installation
 
-At this point, you should have a functioning WordPress server. We will just need to log into the web interface and finalize the setup. Visit your website in your browser and follow the on-screen prompts.
+At this point, you should have a functioning WordPress server. We will just need to log into the web interface and finalize the setup. During this step, you will choose a site title, admin username, and admin password. Be sure to use a strong password for your admin account and do no reuse any credentials that you used to create your WordPress database in MariaDB. Also be sure to use a real email address for the admin user. To complete the installation, visit your website in your browser and follow the on-screen prompts.
 
 ## Verifying the Installation
+At this point, you should have a functioning webserver with HTTPS, and you are able to reach the WordPress dashboard, which you can reach at `http://www.example.com/wp-admin`. The WordPress dashboard is able to show you if there any Apache or PHP errors in your installation. Try creating your first post on your website and verify if the permalink to your newly created post works. This will ensure that the Apache rewrite module is working correctly.
+
 ## Common Issues and Troubleshooting
-Ensure your domain name resolves to the server’s public IP address before running Certbot.
+If you are having issues with setting up HTTPS with Let's Encrypt, ensure that your domain name resolves to the server’s public IP address before running Certbot. If Certbot fails, Apache configuration errors are the next most common cause. Check Apache status and logs for details.
 
-Ports 80 and 443 must be accessible through your firewall.
+If you can not access your webserver at all, make sure that ports 80 and 443 are accessible through your firewall.
 
-If Certbot fails, Apache configuration errors are the most common cause; check Apache status and logs for details.
+If your webserver loads, but you are getting permission errors, make sure that all of the files in your `/var/www/example.com` directory are owned by www-data and have appropriate permissions (755 for directories and 644 for files).
 
-## Security and Next Steps
+Typos can be a leading cause of errors: double your configuration files for Apache and in wp-config.php to make sure that everything is entered correctly.
+
+## Conclusion: Ongoing Security and Next Steps
+Congratulations on installing a LAMP stack on Debian Linux and configuring your WordPress website! All of the components that you need to publish a website for your personal use or your business are now in place. Moving forward, you will need to create your content and maintain good administrative habits to keep your WordPress site safe and secure.
+
+The best thing you can do to keep your WordPress install secure moving forward to make sure that both your Linux server and WordPress install stay up-to-date on the latest security patches. Run `apt update` and `apt full-upgrade` to keep your Debian install updated and check the WordPress dashboard for any updates to the WordPress software, plugins, and themes. Limiting the number of themes and plugins is another way to keep your install more secure. 
+
+Additional security software such as `fail2ban` can be installed to further harden your Linux installation.
+

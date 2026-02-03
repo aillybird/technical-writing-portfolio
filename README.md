@@ -27,7 +27,7 @@ I’m a technical writer focused on clear, task-oriented documentation for Linux
 
 ## Writing samples
 
-- **[WordPress on Debian (LAMP)](https://github.com/aillybird/technical-writing-portfolio/blob/main/install-wordpress-linux.md)**: End-to-end installation and configuration guide focused on clarity, security, and common failure points.
+- **[WordPress on Debian (LAMP)](https://github.com/aillybird/technical-writing-portfolio/blob/main/how-to/install-wordpress-linux.md)**: End-to-end installation and configuration guide focused on clarity, security, and common failure points.
 
 ## Currently working on
 

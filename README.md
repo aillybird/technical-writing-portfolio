@@ -27,12 +27,13 @@ I’m a technical writer focused on clear, task-oriented documentation for Linux
 
 ## Writing samples
 
-- **[WordPress on Debian (LAMP)](https://github.com/aillybird/technical-writing-portfolio/blob/main/how-to/install-wordpress-linux.md)**: End-to-end installation and configuration guide focused on clarity, security, and common failure points.
+- **[WordPress on Debian (LAMP)](how-to/install-wordpress-linux.md)**: End-to-end installation and configuration guide focused on clarity, security, and common failure points.
+- **[SSH Server and Keys configuration](linux-admin/sshd-configuration.md)**: Step by Step recipe for installing, configuring, and hardening an SSH server.
 
 ## Currently working on
 
-- **Git Basics for Real Work**
-- **SSH Server and Keys configuration**
+- **Git Basics for Newbies**
+
 
 ---
 

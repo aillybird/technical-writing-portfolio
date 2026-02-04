@@ -1,3 +1,5 @@
+# Installing a LAMP Stack and Wordpress on Debian Linux
+
 ## Overview
 This guide walks you through installing, setting up, and configuring a new WordPress website on a Debian-based Linux system with a LAMP (Linux, Apache, MariaDB, PHP) stack. By the end of this guide, you will have a functioning WordPress site running on Apache, backed by a MariaDB (MySQL-compatible) database, and ready for initial configuration through the WordPress web interface. This guide assumes you have a valid domain for encryption purposes, and that you have correctly configured DNS for that domain.
 

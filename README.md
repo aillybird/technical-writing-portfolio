@@ -39,4 +39,4 @@ I’m a technical writer focused on clear, task-oriented documentation for Linux
 
 I work best in environments that value asynchronous communication, written clarity, and well-documented processes.
 
-You can reach me via [email](aileen@cutiepie.icu).
+You can reach me via aileenm454@gmail.com.
